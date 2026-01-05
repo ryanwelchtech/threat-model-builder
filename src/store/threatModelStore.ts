@@ -75,7 +75,7 @@ interface ThreatModelState {
   getAttackTree: (nodeId: string) => AttackTreeNode | null;
 }
 
-const getDefaultNodeLabel = (componentType: ComponentType): string => {
+export const getDefaultNodeLabel = (componentType: ComponentType): string => {
   const labels: Record<ComponentType, string> = {
     webApplication: 'Web Application',
     mobileApp: 'Mobile App',
@@ -90,7 +90,7 @@ const getDefaultNodeLabel = (componentType: ComponentType): string => {
   return labels[componentType];
 };
 
-const generateDefaultThreats = (componentType: ComponentType): Threat[] => {
+export const generateDefaultThreats = (componentType: ComponentType): Threat[] => {
   const defaultThreats = DEFAULT_THREATS_BY_COMPONENT[componentType] || [];
   return defaultThreats.map((threat) => ({
     id: generateId(),
@@ -105,7 +105,7 @@ const generateDefaultThreats = (componentType: ComponentType): Threat[] => {
   }));
 };
 
-const generateDefaultMitigations = (threats: Threat[]): Mitigation[] => {
+export const generateDefaultMitigations = (threats: Threat[]): Mitigation[] => {
   const mitigations: Mitigation[] = [];
   const addedTitles = new Set<string>();
 

@@ -166,3 +166,29 @@ export const COMPONENT_CATEGORIES = {
   external: 'External',
   boundary: 'Boundaries',
 } as const;
+
+// Type tuples for validation
+export const STRIDE_CATEGORIES = [
+  'spoofing',
+  'tampering',
+  'repudiation',
+  'informationDisclosure',
+  'denialOfService',
+  'elevationOfPrivilege',
+] as const;
+
+export const COMPONENT_TYPES = [
+  'webApplication',
+  'mobileApp',
+  'apiGateway',
+  'database',
+  'cache',
+  'messageQueue',
+  'externalService',
+  'userActor',
+  'trustBoundary',
+] as const;
+
+export const THREAT_SEVERITIES = ['critical', 'high', 'medium', 'low', 'info'] as const;
+
+export const PRIORITY_SCORES = [1, 2, 3, 4, 5] as const;

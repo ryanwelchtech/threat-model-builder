@@ -21,3 +21,7 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
   unobserve: jest.fn(),
   disconnect: jest.fn(),
 }));
+
+// Mock URL.createObjectURL and revokeObjectURL
+global.URL.createObjectURL = jest.fn().mockReturnValue('blob:test');
+global.URL.revokeObjectURL = jest.fn();
