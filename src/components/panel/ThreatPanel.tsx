@@ -178,20 +178,20 @@ export function ThreatPanel() {
                                 <XCircle className="h-3 w-3 text-red-500" />
                               )}
                               <span className="flex-1 truncate">{mit.title}</span>
-                              <select
-                                value={mit.status}
-                                onChange={(e) =>
-                                  selectedNodeId &&
-                                  updateMitigation(selectedNodeId, mit.id, {
-                                    status: e.target.value as 'implemented' | 'planned' | 'not-implemented',
-                                  })
-                                }
-                                className="text-xs bg-transparent border rounded px-1"
-                              >
-                                <option value="not-implemented">Not Implemented</option>
-                                <option value="planned">Planned</option>
-                                <option value="implemented">Implemented</option>
-                              </select>
+                               <select
+                                 value={mit.status}
+                                 onChange={(e) =>
+                                   selectedNodeId &&
+                                   updateMitigation(selectedNodeId, mit.id, {
+                                     status: e.target.value as 'implemented' | 'planned' | 'not-implemented',
+                                   })
+                                 }
+                                 className="text-xs bg-background border rounded px-1 py-0.5 text-foreground"
+                               >
+                                 <option value="not-implemented">Not Implemented</option>
+                                 <option value="planned">Planned</option>
+                                 <option value="implemented">Implemented</option>
+                               </select>
                             </div>
                           ))}
                         </div>

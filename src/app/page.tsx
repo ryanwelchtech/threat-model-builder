@@ -145,13 +145,13 @@ export default function Home() {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={handleImport}>
-            <Upload className="h-4 w-4 mr-2" />
-            <span className="hidden sm:inline">Import</span>
-          </Button>
           <Button variant="outline" size="sm" onClick={handleExport}>
-            <Download className="h-4 w-4 mr-2" />
+            <Upload className="h-4 w-4 mr-2" />
             <span className="hidden sm:inline">Export</span>
+          </Button>
+          <Button variant="outline" size="sm" onClick={handleImport}>
+            <Download className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Import</span>
           </Button>
           <Button variant="outline" size="sm" onClick={handleClear}>
             <Trash2 className="h-4 w-4" />
