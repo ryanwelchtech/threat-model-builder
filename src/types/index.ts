@@ -10,7 +10,15 @@ export type ComponentType =
   | 'messageQueue'
   | 'externalService'
   | 'userActor'
-  | 'trustBoundary';
+  | 'trustBoundary'
+  | 'loadBalancer'
+  | 'dns'
+  | 'fileStorage'
+  | 'cdn'
+  | 'authService'
+  | 'emailService'
+  | 'searchService'
+  | 'loggingService';
 
 // STRIDE Categories
 export type StrideCategory =
@@ -33,7 +41,7 @@ export interface ComponentDefinition {
   name: string;
   icon: string;
   description: string;
-  category: 'application' | 'infrastructure' | 'external' | 'boundary';
+  category: 'application' | 'infrastructure' | 'external' | 'boundary' | 'network' | 'security' | 'messaging';
   defaultThreats: StrideCategory[];
 }
 
@@ -78,7 +86,7 @@ export interface Mitigation {
   title: string;
   description: string;
   priority: PriorityScore;
-  status: 'implemented' | 'planned' | 'not-implemented';
+  status: 'implemented' | 'in-progress' | 'not-implemented';
   controlType: 'preventive' | 'detective' | 'corrective';
   nistControl?: string;
   owaspRecommendation?: string;
@@ -165,6 +173,9 @@ export const COMPONENT_CATEGORIES = {
   infrastructure: 'Infrastructure',
   external: 'External',
   boundary: 'Boundaries',
+  network: 'Network',
+  security: 'Security',
+  messaging: 'Messaging',
 } as const;
 
 // Type tuples for validation
@@ -187,6 +198,14 @@ export const COMPONENT_TYPES = [
   'externalService',
   'userActor',
   'trustBoundary',
+  'loadBalancer',
+  'dns',
+  'fileStorage',
+  'cdn',
+  'authService',
+  'emailService',
+  'searchService',
+  'loggingService',
 ] as const;
 
 export const THREAT_SEVERITIES = ['critical', 'high', 'medium', 'low', 'info'] as const;

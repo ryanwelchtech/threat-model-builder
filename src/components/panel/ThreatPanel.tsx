@@ -172,7 +172,7 @@ export function ThreatPanel() {
                             >
                               {mit.status === 'implemented' ? (
                                 <CheckCircle className="h-3 w-3 text-green-500" />
-                              ) : mit.status === 'planned' ? (
+                              ) : mit.status === 'in-progress' ? (
                                 <Clock className="h-3 w-3 text-yellow-500" />
                               ) : (
                                 <XCircle className="h-3 w-3 text-red-500" />
@@ -183,13 +183,13 @@ export function ThreatPanel() {
                                  onChange={(e) =>
                                    selectedNodeId &&
                                    updateMitigation(selectedNodeId, mit.id, {
-                                     status: e.target.value as 'implemented' | 'planned' | 'not-implemented',
+                                     status: e.target.value as 'implemented' | 'in-progress' | 'not-implemented',
                                    })
                                  }
                                  className="text-xs bg-background border rounded px-1 py-0.5 text-foreground"
                                >
                                  <option value="not-implemented">Not Implemented</option>
-                                 <option value="planned">Planned</option>
+                                 <option value="in-progress">In Progress</option>
                                  <option value="implemented">Implemented</option>
                                </select>
                             </div>

@@ -13,6 +13,12 @@ import {
   User,
   Shield,
   AlertTriangle,
+  GitMerge,
+  Key,
+  Mail,
+  Search,
+  FileText,
+  Zap,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ThreatNodeData, ComponentType } from '@/types';
@@ -28,6 +34,14 @@ const iconMap: Record<ComponentType, React.ComponentType<{ className?: string }>
   externalService: Cloud,
   userActor: User,
   trustBoundary: Shield,
+  loadBalancer: GitMerge,
+  dns: Globe,
+  fileStorage: HardDrive,
+  cdn: Zap,
+  authService: Key,
+  emailService: Mail,
+  searchService: Search,
+  loggingService: FileText,
 };
 
 const categoryColors: Record<string, string> = {

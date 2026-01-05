@@ -16,6 +16,12 @@ import {
   Layers,
   Building2,
   Box,
+  GitMerge,
+  Key,
+  Mail,
+  Search,
+  FileText,
+  Zap,
 } from 'lucide-react';
 import { COMPONENT_LIBRARY, ARCHITECTURE_TEMPLATES } from '@/data/components';
 import { ComponentType, COMPONENT_CATEGORIES } from '@/types';
@@ -36,6 +42,12 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Cloud,
   User,
   Shield,
+  GitMerge,
+  Key,
+  Mail,
+  Search,
+  FileText,
+  Zap,
 };
 
 const templateIconMap: Record<string, React.ComponentType<{ className?: string }>> = {

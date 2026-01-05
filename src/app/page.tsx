@@ -11,6 +11,7 @@ import {
   Upload,
   Trash2,
   FileJson,
+  FileText,
   Menu,
   X,
   AlertTriangle,
@@ -22,7 +23,7 @@ import { ComponentLibrary } from '@/components/sidebar/ComponentLibrary';
 import { ThreatPanel } from '@/components/panel/ThreatPanel';
 import { useThreatModelStore } from '@/store/threatModelStore';
 import { ComponentType } from '@/types';
-import { downloadJson } from '@/lib/utils';
+import { downloadJson, exportToPdf } from '@/lib/utils';
 import { toast } from 'sonner';
 
 const ThreatCanvas = dynamic(
@@ -85,6 +86,35 @@ export default function Home() {
     }
   }, [clearModel]);
 
+  const handlePdfExport = useCallback(async () => {
+    const model = exportModel();
+    const threatList = model.threats.map((t) => ({
+      title: t.title,
+      severity: t.severity,
+      category: t.category,
+      description: t.description,
+    }));
+    const implementedCount = model.mitigations.filter((m) => m.status === 'implemented').length;
+    const coverage = model.mitigations.length > 0
+      ? Math.round((implementedCount / model.mitigations.length) * 100)
+      : 0;
+
+    await exportToPdf(
+      model.metadata.name,
+      {
+        totalThreats: model.summary.totalThreats,
+        criticalThreats: model.summary.criticalThreats,
+        highThreats: model.summary.highThreats,
+        mediumThreats: model.summary.mediumThreats,
+        lowThreats: model.summary.lowThreats,
+        mitigationCoverage: coverage,
+      },
+      threatList,
+      `${modelName.toLowerCase().replace(/\s+/g, '-')}-report.pdf`
+    );
+    toast.success('PDF report exported successfully');
+  }, [exportModel, modelName]);
+
   const handleDragStart = useCallback((componentType: ComponentType) => {
     setDraggingComponent(componentType);
   }, []);
@@ -145,6 +175,10 @@ export default function Home() {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={handlePdfExport}>
+            <FileText className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">PDF Report</span>
+          </Button>
           <Button variant="outline" size="sm" onClick={handleExport}>
             <Upload className="h-4 w-4 mr-2" />
             <span className="hidden sm:inline">Export</span>

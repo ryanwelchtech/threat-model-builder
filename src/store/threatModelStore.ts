@@ -86,6 +86,14 @@ export const getDefaultNodeLabel = (componentType: ComponentType): string => {
     externalService: 'External Service',
     userActor: 'User',
     trustBoundary: 'Trust Boundary',
+    loadBalancer: 'Load Balancer',
+    dns: 'DNS Server',
+    fileStorage: 'File Storage',
+    cdn: 'CDN',
+    authService: 'Auth Service',
+    emailService: 'Email Service',
+    searchService: 'Search Service',
+    loggingService: 'Logging Service',
   };
   return labels[componentType];
 };

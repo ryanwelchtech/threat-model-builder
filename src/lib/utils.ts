@@ -57,3 +57,92 @@ export function debounce<T extends (...args: unknown[]) => void>(
     timeout = setTimeout(() => func(...args), wait);
   };
 }
+
+export async function exportToPdf(
+  title: string,
+  summary: {
+    totalThreats: number;
+    criticalThreats: number;
+    highThreats: number;
+    mediumThreats: number;
+    lowThreats: number;
+    mitigationCoverage: number;
+  },
+  threats: Array<{
+    title: string;
+    severity: string;
+    category: string;
+    description: string;
+    mitigationStatus?: string;
+  }>,
+  filename: string
+): Promise<void> {
+  const { jsPDF } = await import('jspdf');
+
+  const doc = new jsPDF();
+  let yPos = 20;
+  const margin = 20;
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const contentWidth = pageWidth - margin * 2;
+
+  doc.setFontSize(20);
+  doc.setFont('helvetica', 'bold');
+  doc.text(title, margin, yPos);
+  yPos += 15;
+
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text(`Generated: ${new Date().toLocaleDateString()}`, margin, yPos);
+  yPos += 20;
+
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Executive Summary', margin, yPos);
+  yPos += 10;
+
+  doc.setFontSize(10);
+  doc.setFont('helvetica', 'normal');
+  doc.text(`Total Threats: ${summary.totalThreats}`, margin, yPos);
+  yPos += 6;
+  doc.text(`Critical: ${summary.criticalThreats}  |  High: ${summary.highThreats}  |  Medium: ${summary.mediumThreats}  |  Low: ${summary.lowThreats}`, margin, yPos);
+  yPos += 6;
+  doc.text(`Mitigation Coverage: ${summary.mitigationCoverage}%`, margin, yPos);
+  yPos += 15;
+
+  doc.setFontSize(14);
+  doc.setFont('helvetica', 'bold');
+  doc.text('Threat Report', margin, yPos);
+  yPos += 10;
+
+  for (const threat of threats) {
+    if (yPos > 260) {
+      doc.addPage();
+      yPos = 20;
+    }
+
+    doc.setFontSize(11);
+    doc.setFont('helvetica', 'bold');
+
+    const severityColor = threat.severity === 'critical' ? '#ef4444' :
+                          threat.severity === 'high' ? '#f97316' :
+                          threat.severity === 'medium' ? '#eab308' : '#3b82f6';
+    doc.setTextColor(0, 0, 0);
+    doc.text(`[${threat.severity.toUpperCase()}] ${threat.title}`, margin, yPos);
+    yPos += 6;
+
+    doc.setFontSize(9);
+    doc.setFont('helvetica', 'normal');
+    doc.setTextColor(100, 100, 100);
+    doc.text(`Category: ${threat.category}`, margin, yPos);
+    yPos += 5;
+
+    const descLines = doc.splitTextToSize(threat.description, contentWidth);
+    doc.text(descLines, margin, yPos);
+    yPos += descLines.length * 4 + 5;
+
+    doc.setTextColor(0, 0, 0);
+    yPos += 5;
+  }
+
+  doc.save(filename);
+}

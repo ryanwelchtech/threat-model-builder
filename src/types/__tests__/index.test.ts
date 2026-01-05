@@ -68,18 +68,25 @@ describe('types', () => {
     });
 
     it('should have COMPONENT_TYPES as tuple', () => {
-      const types: readonly [
-        'webApplication',
-        'mobileApp',
-        'apiGateway',
-        'database',
-        'cache',
-        'messageQueue',
-        'externalService',
-        'userActor',
-        'trustBoundary',
-      ] = COMPONENT_TYPES;
-      expect(types.length).toBe(9);
+      const types = COMPONENT_TYPES;
+      expect(types.length).toBe(17);
+      expect(types).toContain('webApplication');
+      expect(types).toContain('mobileApp');
+      expect(types).toContain('apiGateway');
+      expect(types).toContain('database');
+      expect(types).toContain('cache');
+      expect(types).toContain('messageQueue');
+      expect(types).toContain('externalService');
+      expect(types).toContain('userActor');
+      expect(types).toContain('trustBoundary');
+      expect(types).toContain('loadBalancer');
+      expect(types).toContain('dns');
+      expect(types).toContain('fileStorage');
+      expect(types).toContain('cdn');
+      expect(types).toContain('authService');
+      expect(types).toContain('emailService');
+      expect(types).toContain('searchService');
+      expect(types).toContain('loggingService');
     });
 
     it('should have THREAT_SEVERITIES as tuple', () => {

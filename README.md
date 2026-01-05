@@ -34,7 +34,8 @@ This tool makes security analysis accessible to teams without requiring deep cyb
 
 ### Visual Architecture Diagram
 - **Drag-and-drop interface** - Simply drag components onto a canvas to build your system diagram
-- **Pre-built component library** - Includes common elements like databases, web applications, mobile apps, APIs, and external services
+- **Pre-built component library** - Includes 17 component types including databases, APIs, mobile apps, load balancers, DNS, CDN, and more
+- **Prebuilt architectures** - 6 sample architectures to get started quickly (REST API, Microservices, Mobile Backend, Three-Tier, Event-Driven, SaaS)
 - **Trust boundary visualization** - Clearly show where security zones begin and end
 
 ### Automated Threat Analysis
@@ -45,14 +46,18 @@ This tool makes security analysis accessible to teams without requiring deep cyb
   - Information Disclosure (unauthorized data exposure)
   - Denial of Service (making systems unavailable)
   - Elevation of Privilege (gaining unauthorized access)
+- **60+ CWE vulnerability references** - Each threat mapped to real Common Weakness Enumeration entries
+- **Automatic threat generation** - Threats auto-generated for all 17 component types
 
 ### Mitigation Tracking
 - **Suggested security controls** - Each identified threat comes with recommended mitigations
-- **Implementation status tracking** - Mark mitigations as planned, in-progress, or implemented
+- **Implementation status tracking** - Mark mitigations as Not Implemented, In Progress, or Implemented
 - **Priority scoring** - Focus on the most critical security gaps first
+- **NIST/OWASP mappings** - Mitigations linked to NIST controls and OWASP recommendations
 
 ### Reporting & Export
 - **JSON export** - Share complete threat models with team members
+- **PDF export** - Generate compliance-ready reports with executive summaries
 - **Summary dashboards** - View threat counts by severity (Critical, High, Medium, Low)
 - **Audit-ready documentation** - Export reports for compliance reviews
 
@@ -66,6 +71,8 @@ This tool makes security analysis accessible to teams without requiring deep cyb
 - **UI Components**: Radix UI, Tailwind CSS
 - **Testing**: Jest (36 tests, all passing)
 - **Type Safety**: TypeScript
+- **Export**: JSON and PDF reports (jspdf)
+- **Icons**: Lucide React
 
 ---
 
