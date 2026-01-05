@@ -25,6 +25,7 @@ import { useThreatModelStore } from '@/store/threatModelStore';
 import { ComponentType } from '@/types';
 import { downloadJson, exportToPdf } from '@/lib/utils';
 import { toast } from 'sonner';
+import { Database } from 'lucide-react';
 
 const ThreatCanvas = dynamic(
   () => import('@/components/canvas/ThreatCanvas').then((mod) => mod.ThreatCanvas),
@@ -42,6 +43,7 @@ export default function Home() {
     setModelName,
     exportModel,
     importModel,
+    loadDemo,
     clearModel,
     getAllThreats,
     getAllMitigations,
@@ -85,6 +87,14 @@ export default function Home() {
       toast.success('Threat model cleared');
     }
   }, [clearModel]);
+
+  const handleLoadDemo = useCallback(() => {
+    if (nodes.length > 0 && !confirm('This will replace your current diagram. Continue?')) {
+      return;
+    }
+    loadDemo();
+    toast.success('Demo architecture loaded');
+  }, [loadDemo, nodes]);
 
   const handlePdfExport = useCallback(async () => {
     const model = exportModel();
@@ -175,6 +185,10 @@ export default function Home() {
 
         {/* Actions */}
         <div className="flex items-center gap-2">
+          <Button variant="outline" size="sm" onClick={handleLoadDemo}>
+            <Database className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Demo</span>
+          </Button>
           <Button variant="outline" size="sm" onClick={handlePdfExport}>
             <FileText className="h-4 w-4 mr-2" />
             <span className="hidden sm:inline">PDF Report</span>

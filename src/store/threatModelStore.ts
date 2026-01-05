@@ -20,6 +20,7 @@ import {
   ThreatModelExport,
 } from '@/types';
 import { DEFAULT_THREATS_BY_COMPONENT, DEFAULT_MITIGATIONS } from '@/data/components';
+import { getDemoModel } from '@/data/demoData';
 import { generateId } from '@/lib/utils';
 
 interface ThreatModelState {
@@ -66,6 +67,7 @@ interface ThreatModelState {
   setModelDescription: (description: string) => void;
   exportModel: () => ThreatModelExport;
   importModel: (model: ThreatModelExport) => void;
+  loadDemo: () => void;
   clearModel: () => void;
 
   // Computed
@@ -381,6 +383,18 @@ export const useThreatModelStore = create<ThreatModelState>()(
           edges: model.diagram.edges,
           modelName: model.metadata.name,
           modelDescription: model.metadata.description || '',
+          selectedNodeId: null,
+          selectedEdgeId: null,
+        });
+      },
+
+      loadDemo: () => {
+        const demoModel = getDemoModel();
+        set({
+          nodes: demoModel.diagram.nodes,
+          edges: demoModel.diagram.edges,
+          modelName: demoModel.metadata.name,
+          modelDescription: demoModel.metadata.description || '',
           selectedNodeId: null,
           selectedEdgeId: null,
         });
