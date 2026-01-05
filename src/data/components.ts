@@ -580,3 +580,145 @@ export const DEFAULT_MITIGATIONS: Record<
     },
   ],
 };
+
+// Prebuilt Architecture Templates
+export interface ArchitectureTemplate {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  category: string;
+  components: Array<{
+    type: ComponentType;
+    position: { x: number; y: number };
+  }>;
+  trustBoundaries?: Array<{
+    position: { x: number; y: number };
+    width: number;
+    height: number;
+  }>;
+}
+
+export const ARCHITECTURE_TEMPLATES: ArchitectureTemplate[] = [
+  {
+    id: 'restApi',
+    name: 'REST API Service',
+    description: 'Standard REST API with database and cache',
+    icon: 'Workflow',
+    category: 'Full Stack',
+    components: [
+      { type: 'userActor', position: { x: 400, y: 50 } },
+      { type: 'apiGateway', position: { x: 400, y: 180 } },
+      { type: 'webApplication', position: { x: 200, y: 350 } },
+      { type: 'database', position: { x: 400, y: 450 } },
+      { type: 'cache', position: { x: 600, y: 450 } },
+      { type: 'externalService', position: { x: 750, y: 180 } },
+    ],
+    trustBoundaries: [
+      { position: { x: 100, y: 130 }, width: 600, height: 400 },
+    ],
+  },
+  {
+    id: 'microservices',
+    name: 'Microservices',
+    description: 'Distributed microservices with message queue',
+    icon: 'MessagesSquare',
+    category: 'Distributed',
+    components: [
+      { type: 'userActor', position: { x: 400, y: 50 } },
+      { type: 'apiGateway', position: { x: 400, y: 150 } },
+      { type: 'webApplication', position: { x: 150, y: 300 } },
+      { type: 'webApplication', position: { x: 400, y: 300 } },
+      { type: 'webApplication', position: { x: 650, y: 300 } },
+      { type: 'messageQueue', position: { x: 400, y: 450 } },
+      { type: 'database', position: { x: 150, y: 550 } },
+      { type: 'database', position: { x: 400, y: 550 } },
+      { type: 'database', position: { x: 650, y: 550 } },
+      { type: 'cache', position: { x: 400, y: 650 } },
+    ],
+    trustBoundaries: [
+      { position: { x: 80, y: 240 }, width: 250, height: 480 },
+      { position: { x: 330, y: 240 }, width: 250, height: 480 },
+      { position: { x: 580, y: 240 }, width: 250, height: 480 },
+    ],
+  },
+  {
+    id: 'mobileBackend',
+    name: 'Mobile Backend',
+    description: 'Mobile app with backend services',
+    icon: 'Smartphone',
+    category: 'Mobile',
+    components: [
+      { type: 'mobileApp', position: { x: 400, y: 50 } },
+      { type: 'apiGateway', position: { x: 400, y: 180 } },
+      { type: 'webApplication', position: { x: 250, y: 350 } },
+      { type: 'database', position: { x: 400, y: 450 } },
+      { type: 'externalService', position: { x: 600, y: 250 } },
+    ],
+    trustBoundaries: [
+      { position: { x: 200, y: 130 }, width: 400, height: 400 },
+    ],
+  },
+  {
+    id: 'threeTier',
+    name: 'Three-Tier Application',
+    description: 'Classic three-tier architecture',
+    icon: 'Database',
+    category: 'Classic',
+    components: [
+      { type: 'userActor', position: { x: 400, y: 30 } },
+      { type: 'webApplication', position: { x: 400, y: 150 } },
+      { type: 'apiGateway', position: { x: 400, y: 280 } },
+      { type: 'database', position: { x: 400, y: 450 } },
+    ],
+    trustBoundaries: [
+      { position: { x: 150, y: 100 }, width: 500, height: 100 },
+      { position: { x: 150, y: 230 }, width: 500, height: 280 },
+    ],
+  },
+  {
+    id: 'eventDriven',
+    name: 'Event-Driven Architecture',
+    description: 'Services communicating via events',
+    icon: 'Cloud',
+    category: 'Async',
+    components: [
+      { type: 'userActor', position: { x: 100, y: 50 } },
+      { type: 'webApplication', position: { x: 100, y: 150 } },
+      { type: 'messageQueue', position: { x: 300, y: 150 } },
+      { type: 'webApplication', position: { x: 500, y: 150 } },
+      { type: 'database', position: { x: 500, y: 350 } },
+      { type: 'cache', position: { x: 300, y: 350 } },
+      { type: 'externalService', position: { x: 650, y: 150 } },
+    ],
+    trustBoundaries: [
+      { position: { x: 30, y: 90 }, width: 200, height: 200 },
+      { position: { x: 430, y: 90 }, width: 300, height: 200 },
+    ],
+  },
+  {
+    id: 'saasPlatform',
+    name: 'SaaS Platform',
+    description: 'Multi-tenant SaaS with shared services',
+    icon: 'HardDrive',
+    category: 'Enterprise',
+    components: [
+      { type: 'userActor', position: { x: 100, y: 50 } },
+      { type: 'userActor', position: { x: 300, y: 50 } },
+      { type: 'userActor', position: { x: 500, y: 50 } },
+      { type: 'apiGateway', position: { x: 300, y: 150 } },
+      { type: 'webApplication', position: { x: 100, y: 280 } },
+      { type: 'webApplication', position: { x: 300, y: 280 } },
+      { type: 'webApplication', position: { x: 500, y: 280 } },
+      { type: 'database', position: { x: 300, y: 420 } },
+      { type: 'cache', position: { x: 500, y: 420 } },
+      { type: 'messageQueue', position: { x: 100, y: 420 } },
+      { type: 'externalService', position: { x: 650, y: 200 } },
+    ],
+    trustBoundaries: [
+      { position: { x: 30, y: 220 }, width: 240, height: 280 },
+      { position: { x: 280, y: 220 }, width: 240, height: 280 },
+      { position: { x: 530, y: 220 }, width: 240, height: 280 },
+    ],
+  },
+];

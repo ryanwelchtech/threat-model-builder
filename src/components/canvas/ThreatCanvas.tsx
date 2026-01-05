@@ -13,6 +13,7 @@ import 'reactflow/dist/style.css';
 import { ThreatNode } from './ThreatNode';
 import { useThreatModelStore } from '@/store/threatModelStore';
 import { ComponentType } from '@/types';
+import { ARCHITECTURE_TEMPLATES } from '@/data/components';
 
 const nodeTypes: NodeTypes = {
   threatNode: ThreatNode,
@@ -21,7 +22,7 @@ const nodeTypes: NodeTypes = {
 
 function ThreatCanvasInner() {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const { screenToFlowPosition } = useReactFlow();
+  const { screenToFlowPosition, project } = useReactFlow();
 
   const {
     nodes,
@@ -38,9 +39,53 @@ function ThreatCanvasInner() {
     event.dataTransfer.dropEffect = 'move';
   }, []);
 
+  const handleTemplateDrop = useCallback(
+    (event: React.DragEvent) => {
+      event.preventDefault();
+
+      const isTemplate = event.dataTransfer.getData('isTemplate');
+      if (isTemplate !== 'true') return;
+
+      const templateId = event.dataTransfer.getData('templateId');
+      const template = ARCHITECTURE_TEMPLATES.find((t) => t.id === templateId);
+      if (!template) return;
+
+      const dropPosition = screenToFlowPosition({
+        x: event.clientX,
+        y: event.clientY,
+      });
+
+      const offsetX = dropPosition.x - 300;
+      const offsetY = dropPosition.y - 250;
+
+      template.components.forEach((comp) => {
+        const finalPosition = {
+          x: comp.position.x + offsetX,
+          y: comp.position.y + offsetY,
+        };
+        addNode(comp.type, finalPosition);
+      });
+
+      template.trustBoundaries?.forEach((boundary) => {
+        const finalPosition = {
+          x: boundary.position.x + offsetX,
+          y: boundary.position.y + offsetY,
+        };
+        addNode('trustBoundary', finalPosition);
+      });
+    },
+    [screenToFlowPosition, addNode]
+  );
+
   const onDrop = useCallback(
     (event: React.DragEvent) => {
       event.preventDefault();
+
+      const isTemplate = event.dataTransfer.getData('isTemplate');
+      if (isTemplate === 'true') {
+        handleTemplateDrop(event);
+        return;
+      }
 
       const componentType = event.dataTransfer.getData('componentType') as ComponentType;
       if (!componentType) return;
@@ -52,7 +97,7 @@ function ThreatCanvasInner() {
 
       addNode(componentType, position);
     },
-    [screenToFlowPosition, addNode]
+    [screenToFlowPosition, addNode, handleTemplateDrop]
   );
 
   const onNodeClick = useCallback(

@@ -170,11 +170,11 @@ export default function Home() {
       <div className="flex-1 flex overflow-hidden">
         {/* Left Sidebar - Component Library */}
         <aside
-          className={`glass-card border-r w-72 flex-shrink-0 overflow-y-auto transition-all duration-300 ${
+          className={`glass-card border-r w-80 flex-shrink-0 overflow-y-auto transition-all duration-300 ${
             sidebarOpen ? 'translate-x-0' : '-translate-x-full absolute lg:relative lg:translate-x-0'
           }`}
         >
-          <ComponentLibrary onDragStart={handleDragStart} />
+          <ComponentLibrary onDragStart={handleDragStart} onTemplateDrop={() => {}} />
         </aside>
 
         {/* Canvas */}
