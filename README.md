@@ -100,6 +100,21 @@ npm run dev
 
 The application will be available at `http://localhost:3000`
 
+### Trust Boundaries
+
+Trust boundaries are essential for identifying security zones in your architecture. To add a trust boundary:
+
+1. **Drag the Trust Boundary component** from the sidebar (under "Boundary" category)
+2. **Draw a box** around components that share the same trust level
+3. **Connect components across boundaries** to visualize data flow between security zones
+4. **Cross-boundary connections** generate additional threats related to data transit
+
+Common trust boundary examples:
+- **Public Internet** → **DMZ** (load balancers, WAF)
+- **DMZ** → **Application Layer** (API servers)
+- **Application Layer** → **Database Layer** (data stores)
+- **Internal Network** → **External Services** (third-party APIs)
+
 ### Available Commands
 
 | Command | Description |
