@@ -8,7 +8,6 @@ import {
   Moon,
   Shield,
   Download,
-  Upload,
   Trash2,
   FileJson,
   FileText,
@@ -16,7 +15,9 @@ import {
   X,
   AlertTriangle,
   CheckCircle,
+  ChevronDown,
 } from 'lucide-react';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ComponentLibrary } from '@/components/sidebar/ComponentLibrary';
@@ -189,18 +190,37 @@ export default function Home() {
             <Database className="h-4 w-4 mr-2" />
             <span className="hidden sm:inline">Demo</span>
           </Button>
-          <Button variant="outline" size="sm" onClick={handlePdfExport}>
-            <FileText className="h-4 w-4 mr-2" />
-            <span className="hidden sm:inline">PDF Report</span>
-          </Button>
-          <Button variant="outline" size="sm" onClick={handleExport}>
-            <Upload className="h-4 w-4 mr-2" />
-            <span className="hidden sm:inline">Export</span>
-          </Button>
           <Button variant="outline" size="sm" onClick={handleImport}>
             <Download className="h-4 w-4 mr-2" />
             <span className="hidden sm:inline">Import</span>
           </Button>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger asChild>
+              <Button variant="outline" size="sm">
+                <FileJson className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Export</span>
+                <ChevronDown className="h-4 w-4 ml-1" />
+              </Button>
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Portal>
+              <DropdownMenu.Content className="glass-card border p-1 rounded-lg shadow-lg min-w-[140px] z-[100]">
+                <DropdownMenu.Item
+                  className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-accent cursor-pointer outline-none"
+                  onClick={handleExport}
+                >
+                  <FileJson className="h-4 w-4" />
+                  Export as JSON
+                </DropdownMenu.Item>
+                <DropdownMenu.Item
+                  className="flex items-center gap-2 px-3 py-2 text-sm rounded-md hover:bg-accent cursor-pointer outline-none"
+                  onClick={handlePdfExport}
+                >
+                  <FileText className="h-4 w-4" />
+                  Export as PDF
+                </DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Portal>
+          </DropdownMenu.Root>
           <Button variant="outline" size="sm" onClick={handleClear}>
             <Trash2 className="h-4 w-4" />
           </Button>
