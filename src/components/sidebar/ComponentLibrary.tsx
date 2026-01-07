@@ -126,7 +126,7 @@ export function ComponentLibrary({ onDragStart, onTemplateDrop }: ComponentLibra
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm">{template.name}</p>
-                    <p className="text-xs text-muted-foreground truncate">
+                    <p className="text-xs text-muted-foreground break-words">
                       {template.description}
                     </p>
                     <p className="text-xs text-purple-500/70 mt-1">
@@ -178,7 +178,7 @@ export function ComponentLibrary({ onDragStart, onTemplateDrop }: ComponentLibra
                     </div>
                     <div className="flex-1 min-w-0">
                       <p className="font-medium text-sm">{component.name}</p>
-                      <p className="text-xs text-muted-foreground truncate">
+                      <p className="text-xs text-muted-foreground break-words">
                         {component.description}
                       </p>
                     </div>

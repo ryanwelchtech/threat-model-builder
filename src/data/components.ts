@@ -953,6 +953,10 @@ export interface ArchitectureTemplate {
     width: number;
     height: number;
   }>;
+  edges?: Array<{
+    source: number;
+    target: number;
+  }>;
 }
 
 export const ARCHITECTURE_TEMPLATES: ArchitectureTemplate[] = [
@@ -972,6 +976,13 @@ export const ARCHITECTURE_TEMPLATES: ArchitectureTemplate[] = [
     ],
     trustBoundaries: [
       { position: { x: 100, y: 130 }, width: 600, height: 400 },
+    ],
+    edges: [
+      { source: 0, target: 1 },
+      { source: 1, target: 2 },
+      { source: 1, target: 3 },
+      { source: 1, target: 4 },
+      { source: 1, target: 5 },
     ],
   },
   {
@@ -997,6 +1008,19 @@ export const ARCHITECTURE_TEMPLATES: ArchitectureTemplate[] = [
       { position: { x: 330, y: 240 }, width: 250, height: 480 },
       { position: { x: 580, y: 240 }, width: 250, height: 480 },
     ],
+    edges: [
+      { source: 0, target: 1 },
+      { source: 1, target: 2 },
+      { source: 1, target: 3 },
+      { source: 1, target: 4 },
+      { source: 2, target: 5 },
+      { source: 3, target: 5 },
+      { source: 4, target: 5 },
+      { source: 5, target: 6 },
+      { source: 5, target: 7 },
+      { source: 5, target: 8 },
+      { source: 5, target: 9 },
+    ],
   },
   {
     id: 'mobileBackend',
@@ -1014,6 +1038,12 @@ export const ARCHITECTURE_TEMPLATES: ArchitectureTemplate[] = [
     trustBoundaries: [
       { position: { x: 200, y: 130 }, width: 400, height: 400 },
     ],
+    edges: [
+      { source: 0, target: 1 },
+      { source: 1, target: 2 },
+      { source: 1, target: 3 },
+      { source: 1, target: 4 },
+    ],
   },
   {
     id: 'threeTier',
@@ -1030,6 +1060,11 @@ export const ARCHITECTURE_TEMPLATES: ArchitectureTemplate[] = [
     trustBoundaries: [
       { position: { x: 150, y: 100 }, width: 500, height: 100 },
       { position: { x: 150, y: 230 }, width: 500, height: 280 },
+    ],
+    edges: [
+      { source: 0, target: 1 },
+      { source: 1, target: 2 },
+      { source: 2, target: 3 },
     ],
   },
   {
@@ -1050,6 +1085,14 @@ export const ARCHITECTURE_TEMPLATES: ArchitectureTemplate[] = [
     trustBoundaries: [
       { position: { x: 30, y: 90 }, width: 200, height: 200 },
       { position: { x: 430, y: 90 }, width: 300, height: 200 },
+    ],
+    edges: [
+      { source: 0, target: 1 },
+      { source: 1, target: 2 },
+      { source: 2, target: 3 },
+      { source: 2, target: 5 },
+      { source: 3, target: 4 },
+      { source: 3, target: 6 },
     ],
   },
   {
@@ -1075,6 +1118,22 @@ export const ARCHITECTURE_TEMPLATES: ArchitectureTemplate[] = [
       { position: { x: 30, y: 220 }, width: 240, height: 280 },
       { position: { x: 280, y: 220 }, width: 240, height: 280 },
       { position: { x: 530, y: 220 }, width: 240, height: 280 },
+    ],
+    edges: [
+      { source: 0, target: 3 },
+      { source: 1, target: 3 },
+      { source: 2, target: 3 },
+      { source: 3, target: 4 },
+      { source: 3, target: 5 },
+      { source: 3, target: 6 },
+      { source: 4, target: 7 },
+      { source: 5, target: 7 },
+      { source: 6, target: 7 },
+      { source: 4, target: 9 },
+      { source: 5, target: 9 },
+      { source: 6, target: 9 },
+      { source: 6, target: 8 },
+      { source: 3, target: 10 },
     ],
   },
 ];

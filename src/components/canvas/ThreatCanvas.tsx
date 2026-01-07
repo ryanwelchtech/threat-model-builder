@@ -31,6 +31,7 @@ function ThreatCanvasInner() {
     onEdgesChange,
     onConnect,
     addNode,
+    addNodes,
     setSelectedNode,
   } = useThreatModelStore();
 
@@ -58,12 +59,27 @@ function ThreatCanvasInner() {
       const offsetX = dropPosition.x - 300;
       const offsetY = dropPosition.y - 250;
 
-      template.components.forEach((comp) => {
-        const finalPosition = {
+      const components = template.components.map((comp) => ({
+        type: comp.type,
+        position: {
           x: comp.position.x + offsetX,
           y: comp.position.y + offsetY,
-        };
-        addNode(comp.type, finalPosition);
+        },
+      }));
+
+      const nodeIds = addNodes(components);
+
+      template.edges?.forEach((edge) => {
+        if (edge.source < nodeIds.length && edge.target < nodeIds.length) {
+          const sourceId = nodeIds[edge.source];
+          const targetId = nodeIds[edge.target];
+          useThreatModelStore.getState().onConnect({ 
+            source: sourceId, 
+            target: targetId,
+            sourceHandle: null,
+            targetHandle: null,
+          });
+        }
       });
 
       template.trustBoundaries?.forEach((boundary) => {
@@ -74,7 +90,7 @@ function ThreatCanvasInner() {
         addNode('trustBoundary', finalPosition);
       });
     },
-    [screenToFlowPosition, addNode]
+    [screenToFlowPosition, addNode, addNodes]
   );
 
   const onDrop = useCallback(

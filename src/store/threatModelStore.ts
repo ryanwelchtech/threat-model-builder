@@ -44,7 +44,8 @@ interface ThreatModelState {
   onConnect: (connection: Connection) => void;
 
   // Node Operations
-  addNode: (componentType: ComponentType, position: { x: number; y: number }) => void;
+  addNode: (componentType: ComponentType, position: { x: number; y: number }) => string;
+  addNodes: (nodes: Array<{ type: ComponentType; position: { x: number; y: number } }>) => string[];
   updateNode: (nodeId: string, data: Partial<ThreatNodeData>) => void;
   deleteNode: (nodeId: string) => void;
 
@@ -213,6 +214,39 @@ export const useThreatModelStore = create<ThreatModelState>()(
         };
 
         set({ nodes: [...get().nodes, newNode] });
+        return newNode.id;
+      },
+
+      addNodes: (nodes) => {
+        const newNodes: Node<ThreatNodeData>[] = nodes.map((comp) => {
+          const threats = generateDefaultThreats(comp.type);
+          const mitigations = generateDefaultMitigations(threats);
+
+          threats.forEach((threat) => {
+            const relevantMitigations = mitigations.filter((m) => {
+              const categoryMits = DEFAULT_MITIGATIONS[threat.category] || [];
+              return categoryMits.some((cm) => cm.title === m.title);
+            });
+            threat.mitigationIds = relevantMitigations.map((m) => m.id);
+          });
+
+          return {
+            id: generateId(),
+            type: comp.type === 'trustBoundary' ? 'trustBoundary' : 'threatNode',
+            position: comp.position,
+            data: {
+              label: getDefaultNodeLabel(comp.type),
+              componentType: comp.type,
+              threats,
+              mitigations,
+              trustLevel: 'semi-trusted' as const,
+              dataClassification: 'internal' as const,
+            },
+          };
+        });
+
+        set({ nodes: [...get().nodes, ...newNodes] });
+        return newNodes.map((n) => n.id);
       },
 
       updateNode: (nodeId, data) => {
