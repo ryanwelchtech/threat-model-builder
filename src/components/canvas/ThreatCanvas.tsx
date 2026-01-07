@@ -56,14 +56,31 @@ function ThreatCanvasInner() {
         y: event.clientY,
       });
 
-      const offsetX = dropPosition.x - 300;
-      const offsetY = dropPosition.y - 250;
+      const SPACING_MULTIPLIER = 1.5;
+
+      const minX = Math.min(...template.components.map((c) => c.position.x));
+      const maxX = Math.max(...template.components.map((c) => c.position.x));
+      const minY = Math.min(...template.components.map((c) => c.position.y));
+      const maxY = Math.max(...template.components.map((c) => c.position.y));
+      const templateWidth = maxX - minX;
+      const templateHeight = maxY - minY;
+
+      const scaledWidth = templateWidth * SPACING_MULTIPLIER;
+      const scaledHeight = templateHeight * SPACING_MULTIPLIER;
+
+      const centerX = dropPosition.x;
+      const centerY = dropPosition.y;
+
+      const offsetX = centerX - scaledWidth / 2;
+      const offsetY = centerY - scaledHeight / 2;
+
+      const scale = SPACING_MULTIPLIER;
 
       const components = template.components.map((comp) => ({
         type: comp.type,
         position: {
-          x: comp.position.x + offsetX,
-          y: comp.position.y + offsetY,
+          x: minX + (comp.position.x - minX) * scale + offsetX,
+          y: minY + (comp.position.y - minY) * scale + offsetY,
         },
       }));
 
@@ -82,13 +99,18 @@ function ThreatCanvasInner() {
         }
       });
 
-      template.trustBoundaries?.forEach((boundary) => {
-        const finalPosition = {
-          x: boundary.position.x + offsetX,
-          y: boundary.position.y + offsetY,
-        };
-        addNode('trustBoundary', finalPosition);
-      });
+      if (template.trustBoundaries && template.trustBoundaries.length > 0) {
+        const boundaryMinX = Math.min(...template.trustBoundaries.map((b) => b.position.x));
+        const boundaryMinY = Math.min(...template.trustBoundaries.map((b) => b.position.y));
+
+        template.trustBoundaries.forEach((boundary) => {
+          const finalPosition = {
+            x: boundaryMinX + (boundary.position.x - boundaryMinX) * scale + offsetX,
+            y: boundaryMinY + (boundary.position.y - boundaryMinY) * scale + offsetY,
+          };
+          addNode('trustBoundary', finalPosition);
+        });
+      }
     },
     [screenToFlowPosition, addNode, addNodes]
   );
