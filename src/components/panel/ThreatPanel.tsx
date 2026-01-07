@@ -117,7 +117,7 @@ export function ThreatPanel() {
                     <ChevronRight className="h-4 w-4 text-muted-foreground" />
                   )}
                   <Badge variant={threat.severity}>{threat.severity}</Badge>
-                  <span className="flex-1 text-left text-sm font-medium truncate">
+                  <span className="flex-1 text-left text-sm font-medium break-words min-w-0">
                     {threat.title}
                   </span>
                   <Button

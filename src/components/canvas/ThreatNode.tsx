@@ -82,7 +82,7 @@ function ThreatNodeComponent({ data, selected }: NodeProps<ThreatNodeData>) {
             <Icon className="h-5 w-5" />
           </div>
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-sm truncate">{data.label}</p>
+            <p className="font-semibold text-sm break-words">{data.label}</p>
             <p className="text-xs text-muted-foreground capitalize">
               {data.componentType.replace(/([A-Z])/g, ' $1').trim()}
             </p>
