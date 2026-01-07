@@ -138,8 +138,12 @@ function ThreatCanvasInner() {
       });
 
       addNode(componentType, position);
+
+      setTimeout(() => {
+        fitView({ padding: 0.2, duration: 400 });
+      }, 100);
     },
-    [screenToFlowPosition, addNode, handleTemplateDrop]
+    [screenToFlowPosition, addNode, handleTemplateDrop, fitView]
   );
 
   const onNodeClick = useCallback(
