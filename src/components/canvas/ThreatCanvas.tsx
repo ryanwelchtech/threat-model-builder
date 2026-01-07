@@ -22,7 +22,7 @@ const nodeTypes: NodeTypes = {
 
 function ThreatCanvasInner() {
   const reactFlowWrapper = useRef<HTMLDivElement>(null);
-  const { screenToFlowPosition, project } = useReactFlow();
+  const { screenToFlowPosition, project, fitView } = useReactFlow();
 
   const {
     nodes,
@@ -111,8 +111,12 @@ function ThreatCanvasInner() {
           addNode('trustBoundary', finalPosition);
         });
       }
+
+      setTimeout(() => {
+        fitView({ padding: 0.2, duration: 400 });
+      }, 100);
     },
-    [screenToFlowPosition, addNode, addNodes]
+    [screenToFlowPosition, addNode, addNodes, fitView]
   );
 
   const onDrop = useCallback(
