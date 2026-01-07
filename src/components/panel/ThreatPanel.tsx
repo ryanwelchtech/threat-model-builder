@@ -177,7 +177,7 @@ export function ThreatPanel() {
                               ) : (
                                 <XCircle className="h-3 w-3 text-red-500" />
                               )}
-                              <span className="flex-1 truncate">{mit.title}</span>
+                              <span className="flex-1 text-left text-sm break-words min-w-0">{mit.title}</span>
                                <select
                                  value={mit.status}
                                  onChange={(e) =>
